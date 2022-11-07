@@ -1,12 +1,14 @@
-  import React from 'react';
+  import React, {useState, useEffect} from 'react';
   import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
   import CourseList from './components/CourseList';
+
   const schedule = { //json data i think
     "title": "CS Courses for 2018-2019",
     //array of courses
+    
     "courses": [
       {
-        "id": "F101",
+        "id": "F101", 
         "title": "Computer Science: Concepts, Philosophy, and Connections",
         "meets": "MWF 11:00-11:50"
       },
@@ -27,8 +29,22 @@
       }
     ]
   };
+
+
   //Main component
   const App = () => {
+    const [schedule, setSchedule] = useState({title: '', courses: []});
+    const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
+
+    useEffect(() => {
+      const fetchSchedule = async () => {
+        const response = await fetch(url);
+        if (!response.ok) throw response;
+        const json = await response.json();
+        setSchedule(json);
+      }
+      fetchSchedule();
+    } , []);
     return (
       
       <SafeAreaView style={styles.container}>
@@ -39,7 +55,7 @@
   }
   //banner component
   const Banner = ({title}) => (
-    <Text style={styles.bannerStyle}> {title} </Text>
+    <Text style={styles.bannerStyle}> {title || '[Loading...]'} </Text>
   );
 
 
@@ -59,5 +75,5 @@
       fontSize: 32,
     }, 
   });
-
+  
   export default App;
