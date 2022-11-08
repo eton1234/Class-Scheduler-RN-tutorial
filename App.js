@@ -59,8 +59,6 @@
   );
 
 
-  //Course comp
-
 
   //CSS Stylesheet
   const styles = StyleSheet.create({
