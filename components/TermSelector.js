@@ -39,11 +39,11 @@ const TermSelector = ({terms, selectedTerm, setSelectedTerm}) => (
     },
     
     termButton: {
-      termButtonBase,
+      ...termButtonBase,
       backgroundColor: '#4f9f64',
     },
     termButtonActive: {
-      termButtonBase,
+      ...termButtonBase,
       backgroundColor: '#105f25',
     },
     termText: {
