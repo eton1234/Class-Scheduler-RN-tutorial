@@ -2,39 +2,13 @@ import React, {useState, useEffect} from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CourseList from '../components/CourseList';
 
-const schedule = { //json data i think
-  "title": "CS Courses for 2018-2019",
-  //array of courses
-  
-  "courses": [
-    {
-      "id": "F101", 
-      "title": "Computer Science: Concepts, Philosophy, and Connections",
-      "meets": "MWF 11:00-11:50"
-    },
-    {
-      "id": "F110",
-      "title": "Intro Programming for non-majors",
-      "meets": "MWF 10:00-10:50"
-    },
-    {
-      "id": "F111",
-      "title": "Fundamentals of Computer Programming I",
-      "meets": "MWF 13:00-13:50"
-    },
-    {
-      "id": "F211",
-      "title": "Fundamentals of Computer Programming II",
-      "meets": "TuTh 12:30-13:50"
-    }
-  ]
-};
-
   //Main component
-  const ScheduleScreen = () => {
+  const ScheduleScreen = ({navigation}) => {
     const [schedule, setSchedule] = useState({title: '', courses: []});
     const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
-
+    const view = (course) => {
+      navigation.navigate('CourseDetailsScreen', {course});
+    };
     useEffect(() => {
       const fetchSchedule = async () => {
         const response = await fetch(url);
@@ -45,10 +19,10 @@ const schedule = { //json data i think
       fetchSchedule();
     } , []);
     return (
-      
+
       <SafeAreaView style={styles.container}>
         <Banner title={schedule.title} />
-        <CourseList courses={schedule.courses} />
+        <CourseList courses={schedule.courses} view={view}/>
       </SafeAreaView>
     );
   }

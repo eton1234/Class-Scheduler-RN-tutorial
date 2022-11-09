@@ -5,7 +5,7 @@
   import Course from './Course';
   import {hasConflict} from '../utils/course.js';
   import TermSelector from './TermSelector';
-  const CourseList = ({courses}) => {
+  const CourseList = ({courses, view}) => {
     //defines a view for multiple Course components mapped from courses
     const [selectedTerm, setSelectedTerm] = useState('Fall');
     //filter for selected Term
@@ -15,7 +15,7 @@
     <View>
       <ScrollView>
         <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm}/>
-        <CourseSelector courses={termCourses} />
+        <CourseSelector courses={termCourses} view={view}/>
       </ScrollView>
     </View>
     );
@@ -24,7 +24,7 @@
 const termMap = { F: 'Fall', W: 'Winter', S: 'Spring'};
 const terms = Object.values(termMap);
 
-const CourseSelector = ({courses}) => {
+const CourseSelector = ({courses,view}) => {
   //selected courses state 
   const [selected, setSelected] = useState([]);
   const toggle = course => setSelected(selected => (
@@ -39,7 +39,8 @@ const CourseSelector = ({courses}) => {
           
                   <Course key={course.id} course={course} 
                       isDisabled={hasConflict(course, selected)}
-                      isSelected={selected.includes(course)} select={toggle} />
+                      isSelected={selected.includes(course)} select={toggle}
+                      view={view} />
               ))
           }
        </View>

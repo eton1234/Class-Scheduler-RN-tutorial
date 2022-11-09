@@ -3,14 +3,15 @@ import {getCourseNumber} from '../utils/course.js';
 import {StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 //actual componenet 
-const Course = ({course, isSelected, select, isDisabled}) => (
-    <TouchableOpacity 
-    style={styles[isSelected ? 'courseButtonSelected': isDisabled ? 'courseButtonDisabled' : 'courseButton']} 
-    //should be isDisabled not disabled. tutorial is wrong
-    onPress={() => {if (!isDisabled) select(course);}}>
-      <Text style={styles.courseText}> 
-        {`CS ${getCourseNumber(course)} \n ${course.meets}`} 
-      </Text>
+const Course = ({course, isSelected, select, isDisabled, view}) => (
+  <TouchableOpacity 
+  style={styles[isSelected ? 'courseButtonSelected': isDisabled ? 'courseButtonDisabled' : 'courseButton']} 
+  //should be isDisabled not disabled. tutorial is wrong
+  onPress={() => {if (!isDisabled) select(course);}}
+  onLongPress= {() => view(course)}>
+    <Text style={styles.courseText}> 
+      {`CS ${getCourseNumber(course)} \n ${course.meets}`} 
+    </Text>
     </TouchableOpacity>
   );
   //stylesheet

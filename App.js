@@ -2,8 +2,8 @@
   import 'react-native-gesture-handler';
   import { NavigationContainer, StackActions} from '@react-navigation/native';
   import { createStackNavigator } from '@react-navigation/stack';
-
   import ScheduleScreen from './screens/ScheduleScreen.js';
+import CourseDetailScreen from './screens/CourseDetailScreen.js';
   const schedule = { //json data i think
     "title": "CS Courses for 2018-2019",
     //array of courses
@@ -39,9 +39,13 @@
     return (
       <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen name="ScheduleScreen" 
-                          component = {ScheduleScreen}
-                          options={{  title: 'Schedule' }}/>
+          <Stack.Screen name="ScheduleScreen" 
+                        component = {ScheduleScreen}
+                        options={{  title: 'Schedule' }}/>
+
+          <Stack.Screen name="CourseDetailsScreen"
+                            component = {CourseDetailScreen}
+                            options={{title: "Course Details"}} />
         </Stack.Navigator>
       </NavigationContainer>
        
