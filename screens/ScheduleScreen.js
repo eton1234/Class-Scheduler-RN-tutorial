@@ -1,13 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CourseList from '../components/CourseList';
-
+import CourseEditScreen from './CourseEditScreen';
+import UserContext from '../UserContext';
   //Main component
   const ScheduleScreen = ({navigation}) => {
     const [schedule, setSchedule] = useState({title: '', courses: []});
     const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
+    const user = useContext(UserContext);
+    const canEdit = user && user.role  === 'admin';
     const view = (course) => {
-      navigation.navigate('CourseDetailsScreen', {course});
+      navigation.navigate( canEdit ? 'CourseEditScreen': 'CourseDetailsScreen', {course});
     };
     useEffect(() => {
       const fetchSchedule = async () => {
